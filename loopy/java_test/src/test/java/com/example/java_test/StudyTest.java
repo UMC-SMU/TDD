@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
  */
 
 //상태 정보 공유 + 순차적 실행 보장( ex) 시나리오 테스트)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
