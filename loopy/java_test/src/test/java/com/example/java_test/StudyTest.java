@@ -1,10 +1,14 @@
 package com.example.java_test;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class StudyTest {
     @Test
@@ -33,6 +37,27 @@ class StudyTest {
             Thread.sleep(20);
         });
     }
+
+    @Test
+    @DisplayName("조건에 따라 테스트 실행하기")
+    @EnabledOnOs(OS.WINDOWS)   //특정 OS
+    @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_11})   //특정 자바 버전
+    void doTestByFilter1(){
+        String test_env = System.getenv("TEST_ENV");
+
+        assumingThat("LOCAL".equalsIgnoreCase(test_env), () -> {
+            System.out.println("local");
+            Study actual = new Study(100);
+            assertThat(actual.getLimit()).isGreaterThan(0);
+        });
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named = "TEST_ENV", matches = "LOCAL")
+    void doTestByFilter2(){
+        assumeTrue("LOCAL".equalsIgnoreCase(System.getenv("TEST_ENV")));
+    }
+
 
     //테스트 시작 전 한번 실행
     @BeforeAll
