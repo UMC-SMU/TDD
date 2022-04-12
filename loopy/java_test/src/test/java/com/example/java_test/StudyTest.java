@@ -21,8 +21,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+/**
+ * 인스턴스는, 테스트간의 의존성을 없애기 위해서 기본 전략으로 매 테스트마다 새로 생성
+ * 따라서 테스트는 매번 순서대로 실행 X, 순서가 정해져 있지 않음
+ * 5부터는 클래스당 하나만 만들어서 공유할 수 있는 방법이 있음 => BEFORE/AFTER ALL static 일 필요가 없어짐
+ */
+
+//상태 정보 공유 + 순차적 실행 보장( ex) 시나리오 테스트)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
 
+    @Order(2)
     @DisplayName("스터디 생성")
     @FastTest
     void create() {
@@ -50,6 +60,7 @@ class StudyTest {
         });
     }
 
+    @Order(1)
     @SlowTest
     @DisplayName("조건에 따라 테스트 실행하기")
     @EnabledOnOs(OS.WINDOWS)   //특정 OS
