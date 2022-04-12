@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class StudyTest {
-    @Test
+
     @DisplayName("스터디 생성")
+    @FastTest
     void create() {
         Study study = new Study(10);
 
@@ -38,7 +39,7 @@ class StudyTest {
         });
     }
 
-    @Test
+    @SlowTest
     @DisplayName("조건에 따라 테스트 실행하기")
     @EnabledOnOs(OS.WINDOWS)   //특정 OS
     @EnabledOnJre({JRE.JAVA_8, JRE.JAVA_11})   //특정 자바 버전
