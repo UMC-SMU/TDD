@@ -4,6 +4,12 @@ package com.example.javatest;
 public class Study {
     private StudyStatus status;
     private int limit;
+    private String name;
+
+    public Study(int limit, String name) {
+        this.limit = limit;
+        this.name = name;
+    }
 
     public StudyStatus getStatus() {
         return status;
@@ -18,5 +24,18 @@ public class Study {
             throw new IllegalArgumentException("limit는 0보다 커야 한다.");
         }
         this.limit = limit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Study{" +
+                "status=" + status +
+                ", limit=" + limit +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
